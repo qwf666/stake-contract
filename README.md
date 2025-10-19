@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MetaNode Stake DApp
 
-## Getting Started
+A modern, responsive DApp for staking ETH and earning MetaNode tokens. Built with Next.js, wagmi, and RainbowKit.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Stake ETH**: Deposit ETH to earn MetaNode rewards
+- **Claim Rewards**: Claim accumulated MetaNode tokens
+- **Withdraw**: Unstake and withdraw your ETH
+- **Real-time Data**: Live updates of staked amounts and pending rewards
+- **Responsive Design**: Works on desktop and mobile
+- **Wallet Integration**: Connect with MetaMask and other wallets
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **Web3**: wagmi v2, viem, RainbowKit
+- **Animations**: Framer Motion
+- **Notifications**: React Toastify
+- **Icons**: React Icons
+
+## Setup
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Environment Variables**:
+   Create a `.env.local` file with:
+   ```
+   NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id_here
+   NEXT_PUBLIC_STAKE_ADDRESS=0x_your_contract_address_here
+   ```
+
+   **Important**: You must get a WalletConnect Project ID for RainbowKit to work properly.
+
+3. **Get WalletConnect Project ID**:
+   - Go to [WalletConnect Cloud](https://cloud.walletconnect.com/)
+   - Create a new project
+   - Copy the Project ID
+
+4. **Deploy Contract**:
+   - Deploy the MetaNodeStake contract
+   - Update `NEXT_PUBLIC_STAKE_ADDRESS` with the deployed address
+
+5. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+## Contract Integration
+
+The app uses wagmi's native hooks for contract interactions:
+
+- `useReadContract` for reading contract state
+- `useWriteContract` for executing transactions
+- `useBalance` for wallet balance
+- `useAccount` for wallet connection
+
+### Key Contract Functions
+
+- `depositETH()` - Stake ETH
+- `claim(uint256 pid)` - Claim rewards
+- `unstake(uint256 pid, uint256 amount)` - Unstake ETH
+- `withdraw(uint256 pid)` - Withdraw unstaked ETH
+- `stakingBalance(uint256 pid, address user)` - Get staked amount
+- `pendingMetaNode(uint256 pid, address user)` - Get pending rewards
+- `withdrawAmount(uint256 pid, address user)` - Get withdraw info
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── page.tsx            # Home/Stake page
+│   ├── claim/page.tsx      # Claim rewards page
+│   ├── withdraw/page.tsx   # Withdraw page
+│   └── layout.tsx          # Root layout
+├── components/             # React components
+│   ├── layout.tsx          # App layout with providers
+│   ├── header.tsx          # Navigation header
+│   └── ui/                 # Reusable UI components
+└── lib/                    # Utilities and config
+    ├── wagmi.ts            # Wagmi configuration
+    ├── contract.ts         # Contract ABI and addresses
+    └── utils.ts            # Utility functions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Connect Wallet**: Click the connect button to link your wallet
+2. **Stake ETH**: Enter amount and click "Stake ETH"
+3. **Claim Rewards**: View and claim your MetaNode rewards
+4. **Withdraw**: Unstake ETH and withdraw after cooldown period
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Development
 
-## Learn More
+- Uses minimal code with wagmi native operations
+- No complex state management - relies on wagmi hooks
+- Responsive design with Tailwind CSS
+- Toast notifications for user feedback
+- Real-time data updates
+- RainbowKit with custom dark theme styling
 
-To learn more about Next.js, take a look at the following resources:
+## RainbowKit Styling
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project includes custom CSS to ensure RainbowKit components match the dark theme:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Custom color variables for dark mode
+- Gradient connect button styling
+- Modal and dialog theming
+- Consistent typography with the app
 
-## Deploy on Vercel
+All RainbowKit styles are automatically applied and don't require additional configuration.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Build the project:
+   ```bash
+   npm run build
+   ```
+
+2. Deploy to your preferred platform (Vercel, Netlify, etc.)
+
+3. Update environment variables in your deployment platform
+
+## License
+
+MIT

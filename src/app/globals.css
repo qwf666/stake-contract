@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #0ea5e9;
+  --primary-foreground: #ffffff;
 }
 
 @theme inline {
@@ -12,15 +14,86 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom styles for the stake app */
+.glow {
+  position: relative;
+}
+
+.glow::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #0ea5e9, #3b82f6, #8b5cf6);
+  border-radius: inherit;
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 0.7;
+}
+
+/* Primary color utilities */
+.text-primary-400 {
+  color: #60a5fa;
+}
+
+.text-primary-500 {
+  color: #3b82f6;
+}
+
+.text-primary-600 {
+  color: #2563eb;
+}
+
+.bg-primary-500 {
+  background-color: #3b82f6;
+}
+
+.bg-primary-600 {
+  background-color: #2563eb;
+}
+
+.border-primary-500 {
+  border-color: #3b82f6;
+}
+
+.border-primary-500\/20 {
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.focus\:ring-primary-500:focus {
+  --tw-ring-color: #3b82f6;
+}
+
+.focus\:border-primary-500:focus {
+  border-color: #3b82f6;
+}
+
+/* RainbowKit Custom Styles - Simplified */
+[data-rk] {
+  --rk-fonts-body: var(--font-geist-sans);
+  --rk-fonts-heading: var(--font-geist-sans);
+}
+
+/* RainbowKit Connect Button Styling */
+[data-rk] button[data-testid="rk-connect-button"] {
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 0.5rem !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-rk] button[data-testid="rk-connect-button"]:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3) !important;
 }
